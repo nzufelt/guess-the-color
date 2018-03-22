@@ -5,7 +5,11 @@ export default class RandomColor extends Component {
   constructor(props) {
     super(props);
     const color = this.generateColor();
-    this.state = {color: color, complement: this.complement(color)};
+    this.state = {
+      color: color,
+      complement: this.complement(color),
+      clicked: false,
+    };
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -34,8 +38,20 @@ export default class RandomColor extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.mainDiv.style["background-color"] = this.state.color;
-    this.colorText.style["color"] = this.state.complement;
+    if (!this.state.clicked) {
+      this.mainDiv.style["background-color"] = this.state.color;
+      this.colorText.style["color"] = this.state.complement;
+      this.setState({clicked: true});
+    } else {
+      this.mainDiv.style["background-color"] = "#ebebeb";
+      this.colorText.style["color"] = "black";
+      const color = this.generateColor();
+      this.setState({
+        color: color,
+        complement: this.complement(color),
+        clicked: false,
+      });
+    }
   }
 
   render() {
