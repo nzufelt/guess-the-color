@@ -2,7 +2,7 @@
   "name": "guess_the_color",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nzufelt.github.io/guess-the-color",
+  "homepage": "https://nzufelt.github.io/guess-the-color/",
   "dependencies": {
     "gh-pages": "^1.1.0",
     "react": "^16.2.0",
