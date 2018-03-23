@@ -3,7 +3,7 @@ import RandomColor from './RandomColor';
 import Footer from './Footer';
 import './App.css';
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <div className="App site">
@@ -18,5 +18,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

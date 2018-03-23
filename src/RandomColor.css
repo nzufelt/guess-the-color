@@ -1,8 +1,7 @@
 .color-text {
-  font-size: 2em;
-  vertical-align: middle;
-  -webkit-transition: color 0.75s;
-  transition: color 0.75s;
+  font-size: 5em;
+  /* vertical-align: middle; */
+  margin-top: 0.5em;
 }
 
 .color-box {
@@ -11,7 +10,8 @@
   background-color: #ebebeb;
   border-radius: 30px;
   width: 75%;
-  line-height: 25em; /* Used to vertically center the text */
+  /* Used to vertically center the text */
+  /* line-height: 25em;  */
   height: 25em;
   -webkit-transition: background-color 0.75s;
   transition: background-color 0.75s;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './RandomColor.css';
+import ColorPill from './ColorPill'
 
 export default class RandomColor extends Component {
   constructor(props) {
@@ -13,38 +14,44 @@ export default class RandomColor extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  generateHexPair() {
-    let num = (Math.floor(Math.random() * 256));
+  toHex(num) {
     if (num < 16) return '0' + num.toString(16);
     return num.toString(16);
   }
 
-  complement(inputColor) {
-    let col = {
-      red: parseInt(inputColor.substring(1, 3), 16),
-      green: parseInt(inputColor.substring(3, 5), 16),
-      blue: parseInt(inputColor.substring(5, 7), 16)
-    };
-    return '#' + (256 - col.red).toString(16)
-      + (256 - col.green).toString(16)
-      + (256 - col.blue).toString(16);
+  complement(color) {
+    let comp = {};
+    comp["red"] = 256 - color.red;
+    comp["green"] = 256 - color.green;
+    comp["blue"] = 256 - color.blue;
+    comp["hex"] = '#' + this.toHex(comp.red)
+      + this.toHex(comp.green)
+      + this.toHex(comp.blue);
+
+    return comp;
   }
 
   generateColor() {
-    return '#' + this.generateHexPair()
-      + this.generateHexPair()
-      + this.generateHexPair();
+    let color = {};
+    color["red"] = Math.floor(Math.random() * 256);
+    color["green"] = Math.floor(Math.random() * 256);
+    color["blue"] = Math.floor(Math.random() * 256);
+    color["hex"] = '#' + this.toHex(color.red)
+      + this.toHex(color.green)
+      + this.toHex(color.blue);
+
+    return color;
   }
 
   handleClick(e) {
     e.preventDefault();
     if (!this.state.clicked) {
-      this.mainDiv.style["background-color"] = this.state.color;
-      this.colorText.style["color"] = this.state.complement;
+      this.mainDiv.style["background-color"] = this.state.color.hex;
+      // this.colorText.style["color"] = this.state.complement.hex;
       this.setState({clicked: true});
     } else {
       this.mainDiv.style["background-color"] = "#ebebeb";
-      this.colorText.style["color"] = "black";
+      // this.colorText.style["color"] = "black";
       const color = this.generateColor();
       this.setState({
         color: color,
@@ -56,16 +63,26 @@ export default class RandomColor extends Component {
 
   render() {
     return (
-      <div
-        className="color-box"
-        ref={(ref) => this.mainDiv = ref}
-        onClick={this.handleClick}
-      >
+      <div>
+        <div
+          className="color-box"
+          ref={(ref) => this.mainDiv = ref}
+          onClick={this.handleClick}
+        >
+          {["red", "green", "blue"].map((comp) =>
+            <ColorPill
+              color={comp}
+              colorValue={this.state.color[comp]}
+              hidden={!this.state.clicked}
+              complement={this.state.complement.hex}
+            />
+          )}
+        </div>
         <p
           className="color-text"
           ref={(ref) => this.colorText = ref}
         >
-          {this.state.color}
+          {this.state.color.hex}
         </p>
       </div>
     );
